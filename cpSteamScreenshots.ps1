@@ -5,7 +5,7 @@ $dest = $args[1];
 if ( Test-Path -Path $src ){
   
 }else{
-  Write.Host "Bad SRC $src"
+  Write-Host "Bad SRC $src"
   Write-Host ".\cpSteamScreenShots.ps1 <DIR STEAM>  <DIR Mis Imagenes>"
   Write-Host ".\cpSteamScreenShots.ps1  c:\Steam\userdata\128290065\760\remote\" "C:\Users\Usuario\Pictures\Steam\"
   exit
@@ -14,7 +14,7 @@ if ( Test-Path -Path $src ){
 if ( Test-Path -Path $dest ){
   
 }else{
-  Write.Host "Bad DEST $dest"
+  Write-Host "Bad DEST $dest"
   Write-Host ".\cpSteamScreenShots.ps1 <DIR STEAM>  <DIR Mis Imagenes>"
   Write-Host ".\cpSteamScreenShots.ps1  c:\Steam\userdata\128290065\760\remote\" "C:\Users\Usuario\Pictures\Steam\"
   exit
