@@ -20,7 +20,6 @@ if ( Test-Path -Path $dest ){
   exit
 }
 
-exit
 
 $watcher = New-Object System.IO.FileSystemWatcher 
 $watcher.Path = $src
