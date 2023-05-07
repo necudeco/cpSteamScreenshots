@@ -3,23 +3,22 @@ $src = $args[0];
 $dest = $args[1];
 
 if ( Test-Path -Path $src ){
-  
+
 }else{
-  Write-Host "Bad SRC $src"
   Write-Host ".\cpSteamScreenShots.ps1 <DIR STEAM>  <DIR Mis Imagenes>"
   Write-Host ".\cpSteamScreenShots.ps1  c:\Steam\userdata\128290065\760\remote\" "C:\Users\Usuario\Pictures\Steam\"
   exit
 }
 
 if ( Test-Path -Path $dest ){
-  
+
 }else{
-  Write-Host "Bad DEST $dest"
   Write-Host ".\cpSteamScreenShots.ps1 <DIR STEAM>  <DIR Mis Imagenes>"
   Write-Host ".\cpSteamScreenShots.ps1  c:\Steam\userdata\128290065\760\remote\" "C:\Users\Usuario\Pictures\Steam\"
   exit
 }
 
+Write-Host "cpSteamScreenshots.ps1 $src $dest"
 
 $watcher = New-Object System.IO.FileSystemWatcher 
 $watcher.Path = $src
@@ -30,22 +29,32 @@ $watcher.EnableRaisingEvents = $true
 $action = { 
     $path = $Event.SourceEventArgs.FullPath
     $name = $Event.SourceEventArgs.Name
+    $dest2 = $Event.MessageData
     
+    $startTime = Get-Date
+
     if ( $name.Contains("thumbnails") ){
 
     }else{
-      Write-Host "new big file detected $name"
-      Write-Host "FullPath $path"
-      Copy-Item $path -Destination $dest
+      Write-Host " "
+      Write-Host "new big file detected $name $startTime"
+      Write-Host "Copy $path $dest2 "
+      
+      Copy-Item -Path $path -Destination $dest2 -Force
+
+      Write-Host "File copied "
+      #robocopy $path $dest2
     }
     
   }    
 
-Write-Host "Starting"
-
-
 $sourceId = New-Guid
-Register-ObjectEvent $watcher "Created" -Action $action -SourceIdentifier $sourceId
+
+Write-Host "Starting $sourceId"
+
+
+
+Register-ObjectEvent $watcher "Created" -Action $action -SourceIdentifier $sourceId  -MessageData $dest
 
 while ( $true ){
 
